@@ -11,8 +11,6 @@ htmlfile="index.html"
 
 # First, build html
 markdown-to-slides README.md  -s style.css -l template.html -o index.html
-# sed js link
-sed -i s@https\:\/\/gnab\.github\.io\/remark\/downloads@\.\.\/js@g index.html
 
 # Get md5sum
 md5=$(md5sum $mdfile | cut -d " " -f1)
@@ -30,8 +28,6 @@ while true ;do
         echo "README.md change, re-build html ..."
         # build html
         markdown-to-slides README.md  -s style.css -l template.html -o index.html
-        # sed js link
-        sed -i s@https\:\/\/gnab\.github\.io\/remark\/downloads@\.\.\/js@g index.html
         echo "Done"
     fi
 

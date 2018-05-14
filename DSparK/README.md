@@ -14,7 +14,8 @@
     - Binary kmers
     - Dataframe
 
-3. Conclusion
+3. Benchmarks
+    - Datasets
 
 ---
 
@@ -28,7 +29,7 @@ DSK is a k-mer counter for reads or genomes. It use the GATB-core library (C++)
 count: false
 
 - input: set af sequences (fasta/q)
-- output: set of kmers which occur more than a minimal amount of times, and number of times thses kmers occur
+- output: set of kmers which occur more than a minimal amount of times, and number of times these kmers occur
 
 output format is a binary file in h5 format. This output can converted to ascii with `dsk2ascii`
 
@@ -36,28 +37,7 @@ output format is a binary file in h5 format. This output can converted to ascii 
 ## dsk / GATB-core
 ------------------
 
-A kmer and its reverse complement are considered to be the same lmer. DSK considers that A<C<T<G and returns the lexicographically smaller kmer using this alphabet order.
-
-
-
-
----
-## dsk / GATB-core
-### Benchmark
-------------------
-
-
-Input files: 2 fasta files,
-- number of reads : 800 000 000
-- size : 254 GB
-
---
-count: false
-
-| Soft | Machine | cores | memory | disk | exec time |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| dsk | VM | 20 | 45G | 150G | 33 min |
-| dsk | cluster | 40 | 100G | 500G | 24 min |
+A kmer and its reverse complement are considered to be the same kmer. DSK considers that A<C<T<G and returns the lexicographically smaller kmer using this alphabet order.
 
 
 ---
@@ -101,21 +81,6 @@ First version of DSparK handle kmers in String Format
 
 
 ![dspark1](images/dspark1.png "DSparK 1")
-
----
-## DSparK
-### String kmers
-#### Benchmark
-------------------
-
-
-| Soft | Machine | cores | memory | disk | exec time |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| dsk | VM | 20 | 45G | 150G | 33 min |
-| dsk | cluster | 40 | 100G | 500G | 24 min |
-| DSparK1 | spark | 150 | 5G/executor | -- | 49 min |
-
-
 
 
 
@@ -169,35 +134,12 @@ def nuclToLong(nucl: Char): Long = {
 
 DSparK use a 64 bits `Long` to store the kmer. we can store a kmer with a maximum size of 32
 
-![kmerConversion](images/kmerConversion.png)
-
-
----
-## DSparK
-### Binary kmers
------------------
-
-
 Kmer and its revcomp are computed at the same time
 
 The smallest `Long`  is the canonical one.
 
 
----
-## DSparK
-### Binary kmers
-#### Benchmark
------------------
 
-
-| Soft | Machine | cores | memory | disk | exec time |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| dsk | VM | 20 | 45G | 150G | 33 min |
-| dsk | cluster | 40 | 100G | 500G | 24 min |
-| DSparK1 | spark | 150 | 5G/executor | -- | 49 min |
-| DSparK2 | spark | 150 | 5G/executor | -- | 46 min |
-
-Still less efficient than GATB
 
 ---
 ## DSparK
@@ -206,31 +148,104 @@ Still less efficient than GATB
 
 A Dataframe is a distributed collection of data. It provides the benefits of RDDs (strong typing, ability to use powerful lambda functions) with the benefits of Spark SQL’s optimized execution engine.
 
+---
+## DSparK
+### Implementations
+-----------------
+
+4 implementation of DSparK:
+
+- String Kmers witk RDD
+- String kmers with DF
+- Binary kmers with RDD
+- Binary kmers with DF
 
 
+---
+## Benchmarks
+### Datasets
+-----------------
+Input files: 4 fasta files:
+
+|File|Size|Number of reads|
+|:-----:|:-----:|:-----:|
+|ERR194146_1.fasta|127 G|813 180 578|
+|ERR194146_2.fasta|127 G|813 180 578|
+|ERR194147_1.fasta|122 G|787 265 109|
+|ERR194147_2.fasta|122 G|787 265 109|
+
+3 datasets:
+
+|Dataset|Files|Size|Number of reads|
+|:-----:|:-----:|:-----:|:-----:|
+|DS1|ERR194146_1.fasta|127 G|813 180 578|
+|DS2|ERR194146_1.fasta + ERR194146_1.fasta|254 G|1 626 361 156|
+|DS3|all|497 G|3 200 891 374|
 
 
 
 ---
-## DSparK
-### Spark DataFrame
-#### Benchmark
+## Benchmarks
+### DSK
 -----------------
 
+<div id="benchmark_dsk_histogram"></div>
 
-| Soft | Machine | cores | memory | disk | exec time |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| dsk | VM | 20 | 45G | 150G | 33 min |
-| dsk | cluster | 40 | 100G | 500G | 24 min |
-| DSparK1 | spark | 150 | 5G/executor | -- | 49 min |
-| DSparK2 | spark | 150 | 5G/executor | -- | 46 min |
-| DSparK23 | spark | 150 | 5G/executor | -- | **24 min** |
+
+
+---
+## Benchmarks
+### DSparK
+-----------------
+
+Comparison of the 4 implementations of DSparK, on DS2, with 150 executors
+
+
+<div id="benchmark_spark_histogram"></div>
+
+
+---
+## Benchmarks
+### DSparK
+------------
+
+Execution time of DSparK on the 3 datasets, in function of the number of executors.
+
+<div id="spark_benchmark"></div>
+
+---
+## Benchmarks
+### Comparison
+------------
+
+Comparison between DSK and DSparK (on DS2):
+- With the same ressources (40 cores/executors)
+- The best execution time (40 cores for DSK, 150 executors for DSparK)
+
+<div id="comparison_benchmark"></div>
 
 
 
 ---
 ## Conclusion
 ------------
+
+- Execution time
+
+With equivalente resources, it's difficult to compete a C++ program, but with Spark, we can easily access more ressources.
+
+- Developpment time
+
+Spark programs are easily to developp (once learning time is done)
+
+
+
+
+
+
+
+
+
 
 
 
