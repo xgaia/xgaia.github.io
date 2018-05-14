@@ -172,7 +172,7 @@ function drawChart() {
     },
     curveType: 'function',
     vAxis: {
-      title: 'Time',
+      title: 'Time (HH:MM)',
       // scaleType: 'log'
     },
     intervals: {'color': 'black' },
@@ -218,6 +218,9 @@ function drawBarChart() {
     width: 800,
     height: 400,
     intervals: {'color': 'black' },
+    vAxis: {
+      title: 'Time (HH:MM)'
+    },
   };
 
   var chart = new google.visualization.ColumnChart(
@@ -330,7 +333,7 @@ function drawBarChartDSK() {
     },
     curveType: 'function',
     vAxis: {
-      title: 'Time'
+      title: 'Time (HH:MM)'
     },
     intervals: {'color': 'black' },
   };
@@ -378,6 +381,9 @@ function drawComparisonBarChart() {
     width: 800,
     height: 400,
     intervals: {'color': 'black' },
+    vAxis: {
+      title: 'Time (HH:MM)'
+    },
   };
 
   var chart = new google.visualization.ColumnChart(

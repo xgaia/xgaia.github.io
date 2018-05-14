@@ -166,7 +166,12 @@ The smallest `Long`  is the canonical one.
 ### Spark DataFrame
 -----------------
 
-A Dataframe is a distributed collection of data. It provides the benefits of RDDs (strong typing, ability to use powerful lambda functions) with the benefits of Spark SQL’s optimized execution engine.
+
+a RDD is a distributed collection of data elements spread across many machines in the cluster. 
+
+A DataFrame is a distributed collection of data organized into named columns. It is conceptually equal to a table in a relational database. It provides the benefits of RDDs (strong typing, ability to use powerful lambda functions) with the benefits of Spark SQL’s optimized execution engine.  
+
+
 
 ---
 ## DSparK
