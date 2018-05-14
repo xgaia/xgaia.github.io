@@ -173,10 +173,8 @@ iframe {
 
 DSK is a k-mer counter for reads or genomes. It use the GATB-core library (C++)
 
---
-count: false
 
-- input: set af sequences (fasta/q)
+- input: set of sequences (fasta/q)
 - output: set of kmers which occur more than a minimal amount of times, and number of times these kmers occur
 
 output format is a binary file in h5 format. This output can converted to ascii with `dsk2ascii`
@@ -193,10 +191,10 @@ A kmer and its reverse complement are considered to be the same kmer. DSK consid
 ------------------
 
 
-<b>D</b><b><i>S</i></b><i>par</i><b><i>K</i></b> is the spark implementation of dsk. It's available on the lipm GitLab.
+<b>D</b><b><i>S</i></b><i>par</i><b><i>K</i></b> is the spark implementation of dsk. It's available on the Github.
 
-- Code: https://lipm-gitlab.toulouse.inra.fr/spark-ics/DSparK
-- Doc: https://lipm-gitlab.toulouse.inra.fr/spark-ics/DSparK/wikis/home
+- Code: https://github.com/xgaia/DSparK
+- Doc: https://github.com/xgaia/DSparK/wikis/home
 
 
 ```bash
@@ -222,6 +220,24 @@ DSparK use [paramparser](https://lipm-gitlab.toulouse.inra.fr/llegrand/scala-uti
 
 ---
 ## DSparK
+------------------
+
+Output of DSparK is a directory that contains csv files containing the kmers (long or string format), and their count
+
+|kmer|count|
+|------|--------|
+|3325280073797444861|2|
+|1165639776351239144|15|
+|4077748258335003637|2|
+|760943613600567045|3|
+|1592673192342061621|3|
+|557309640193916251|3|
+|1290657878173173551|3|
+|1365494862329053759|15|
+
+
+---
+## DSparK
 ### String kmers
 ------------------
 
@@ -229,8 +245,6 @@ First version of DSparK handle kmers in String Format
 
 
 ![dspark1](images/dspark1.png "DSparK 1")
-
-
 
 
 ---
@@ -249,7 +263,7 @@ The second version handle kmers in binary format (Long)
 ### Binary kmers
 -----------------
 
-DSparK encodes nucleotids the same way as GATB
+DSparK encodes nucleotides the same way as GATB
 
 ```c
 // GATB, C++
@@ -303,10 +317,10 @@ A Dataframe is a distributed collection of data. It provides the benefits of RDD
 
 4 implementation of DSparK:
 
-- String Kmers witk RDD
-- String kmers with DF
-- Binary kmers with RDD
-- Binary kmers with DF
+- String Kmers witk RDD (branch `string_rdd`)
+- String kmers with DF (branch `string_df`)
+- Binary kmers with RDD (branch `binary_rdd`)
+- Binary kmers with DF (branch `master`)
 
 
 ---
@@ -367,7 +381,7 @@ Execution time of DSparK on the 3 datasets, in function of the number of executo
 ------------
 
 Comparison between DSK and DSparK (on DS2):
-- With the same ressources (40 cores/executors)
+- With the same resources (40 cores/executors)
 - The best execution time (40 cores for DSK, 150 executors for DSparK)
 
 <div id="comparison_benchmark"></div>
@@ -380,11 +394,11 @@ Comparison between DSK and DSparK (on DS2):
 
 - Execution time
 
-With equivalente resources, it's difficult to compete a C++ program, but with Spark, we can easily access more ressources.
+With equivalent resources, it's difficult to compete a C++ program, but with Spark, we can easily access more resources.
 
-- Developpment time
+- Development time
 
-Spark programs are easily to developp (once learning time is done)
+Spark programs are easily to develop (once learning time is done)
 
 
 
