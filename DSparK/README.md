@@ -13,9 +13,15 @@
     - String kmers
     - Binary kmers
     - Dataframe
+    - Implementations
 
 3. Benchmarks
     - Datasets
+    - DSK
+    - DSparK
+    - Comparison
+
+4. Conclusion
 
 ---
 
