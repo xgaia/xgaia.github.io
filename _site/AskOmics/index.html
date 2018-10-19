@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>AskOmics</title>
+		<style>
+			body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h1, h2, h3, h4 {
+	font-weight: 400;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+.remark-slide-content h1 {
+	font-size: 3em;
+	display: inline-block;
+}
+
+.remark-slide-content h2 {
+	font-size: 2em;
+	display: inline-block;
+}
+
+.remark-slide-content h3 {
+	font-size: 1.5em;
+	display: inline-block;
+	margin-left: 30px
+}
+
+.remark-slide-content h4 {
+	font-size: 1.2em;
+	display: inline-block;
+	margin-left: 30px
+}
+
+.footnote {
+	position: absolute;
+	bottom: 3em;
+}
+li p { line-height: 1.25em; }
+.red { color: #fa0000; }
+.large { font-size: 2em; }
+a, a > code {
+	color: rgb(249, 38, 114);
+	text-decoration: none;
+}
+code {
+	background: none repeat scroll 0 0 #F8F8FF;
+  border: 1px solid #DEDEDE;
+  border-radius: 3px 	;
+  padding: 0 0.2em;
+}
+.remark-code, .remark-inline-code { font-family: "Bitstream Vera Sans Mono", "Courier", monospace; }
+.remark-code-line-highlighted     { background-color: #373832; }
+.pull-left {
+	float: left;
+	width: 47%;
+}
+.pull-right {
+	float: right;
+	width: 47%;
+}
+.pull-right ~ p {
+	clear: both;
+}
+#slideshow .slide .content code {
+	font-size: 0.8em;
+}
+#slideshow .slide .content pre code {
+	font-size: 0.9em;
+	padding: 15px;
+}
+.main-title, .title {
+	background: #272822;
+	color: #777872;
+	text-shadow: 0 0 20px #333;
+}
+.title h1, .title h2, .main-title h1, .main-title h2 {
+	color: #f3f3f3;
+	line-height: 0.8em;
+}
+/* Custom */
+.remark-code {
+	display: block;
+	padding: 0.5em;
+}
+ /* table */
+table {
+	border-collapse: collapse;
+    width: 100%;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tr:hover {background-color: #ddd;}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* line */
+
+hr {
+	color: #4CAF50;
+}
+
+/* images */
+
+img{
+	display: block;
+    width: 100%;
+	height: 100%;
+}
+
+/* iframe */
+
+iframe {
+    width: 100%;
+	height: 550px;
+	zoom: 0.70;
+
+}
+
+
+
+
+
+
+		</style>
+	</head>
+	<body>
+		<textarea id="source">
+# AskOmics
+-------------------------
+
+<!-- ![askomics](images/askomics.png "askomics") -->
+
+.footnote[Xavier Garnier, Dyliss team, Inria]
+
+---
+
+## Table of contents
+---------
+
+1. Overview
+    - Presentation
+    - Software architecture
+
+2. Installation
+    - Virtuoso
+    - User
+        * Manual
+        * Docker
+        * Quick deployment with [Genostack](https://genostack.genouest.org)
+    - Developer
+
+3. Contributing
+    - As a user
+    - As a developer
+
+4. Future
+    - Version 18.10
+    - Redesign
+
+
+
+---
+
+## Presentation
+---------
+
+AskOmics is a Web tool to integrate datasets and query them through a graphical interface
+
+- Integration: Convert TSV/CSV/GFF Data into RDF triples
+- Query: Cross different data sources and extract information
+
+User build a query through an interactive graph ⇒ User don’t need to know semantic web languages (RDF/SPARQL)
+
+---
+
+## Software architecture
+-------------
+
+AskOmics is written  in Python and JS
+
+Serverside : Pyramid framework (python)
+
+Frontend : Javascript (no framework but lot of js library)
+
+Triplestore : Virtuoso
+
+---
+
+## Software architecture
+-------------
+
+![asko1](images/askomicsv1.png "asko1")
+
+---
+
+## Software architecture
+-------------
+
+- Routes are defined in `askomics/__init__.py`
+
+```python
+# Askomics routes
+config.add_route('home', '/')
+config.add_route('start_point', '/startpoints')
+```
+
+- Methods to execute are in `askomics/views.py` and `askomics/ask_views.py`
+
+```python
+@view_config(route_name='home', renderer='static/src/templates/index.pt')
+def my_view(request):
+    return {'project': 'Askomics'}
+```
+
+
+```python
+@view_config(route_name='start_point', request_method='GET', renderer='json')
+def start_points(self):
+
+   # Get start points ...
+
+    return self.data
+```
+
+
+---
+
+
+## Installation
+### Virtuoso
+-----------------
+
+First, install dependencies
+
+
+```bash
+# Ubuntu
+sudo apt install autoconf automake libtoolize flex bison gperf gawk m4 make openssl libssl-dev
+```
+
+```bash
+# Fedora
+sudo dnf install -y autoconf automake libtoolize flex bison gperf gawk m4 make
+sudo dnf erase -y openssl-devel
+sudo dnf install -y compat-openssl10-devel # virtuoso is not compatible with recent openssl
+```
+Then, download and install Virtuoso
+
+```bash
+# Download virtuoso
+wget https://github.com/openlink/virtuoso-opensource/releases/download/v7.2.5.1/virtuoso-opensource-7.2.5.tar.gz
+tar -xf virtuoso-opensource-7.2.5.tar.gz
+cd virtuoso-opensource-7.2.5
+./configure
+make
+make install
+```
+
+---
+
+
+
+## Installation
+### User
+#### Manual
+-----------------
+
+Install dependencies
+
+```bash
+sudo apt install -y python3 python3-venv npm  # or dnf install -y if you are on Fedora
+sudo npm install gulp -g
+```
+
+Get the latest "stable" version of AskOmics
+
+```bash
+wget https://github.com/askomics/askomics/archive/17.12.tar.gz
+tar -xf 17.12.tar.gz
+cd askomics
+# or use git
+git clone https://github.com/askomics/askomics.git
+cd askomics
+git checkout 17.12 # fetch the latest stable version
+```
+
+Run
+
+```bash
+./startAskomics -d prod -t virtuoso
+```
+
+---
+
+
+## Installation
+### User
+#### Docker
+-----------------
+
+Install docker ([here](https://docs.docker.com/install/linux/docker-ce/fedora/) for Fedora and [here](https://docs.docker.com/install/linux/docker-ce/ubuntu/) for Ubuntu)
+and docker-compose
+
+```bash
+sudo apt install -y docker-compose # or sudo dnf install -y
+```
+
+Get the docker-compose files
+
+```bash
+git clone https://github.com/askomics/askomics-docker-compose.git
+```
+
+Run
+
+```bash
+cd askomics-docker-compose/virtuoso
+docker-compose up -d
+```
+
+
+---
+
+## Installation
+### User
+#### Genostack install
+-----------------
+
+Create a Instance with docker installed and run 
+
+```bash
+apt-get update && apt-get install git
+git clone https://github.com/askomics/askomics-docker-compose
+./askomics-docker-compose/genostack-install-env.sh
+```
+
+AskOmics is available at [http://openstack-192-168-xxx-xx.genouest.org/askomics]()
+
+---
+
+
+## Installation
+### Developer
+-----------------
+
+
+Go to [https://github.com/askomics/askomics](https://github.com/askomics/askomics) and fork the repository
+
+![fork](images/askomics_github.png "Fork")
+
+Then, clone you fork
+
+```bash
+git clone https://github.com/xgaia/askomics.git
+cd askomics
+```
+Install dependancies
+
+```bash
+sudo apt install -y python3 python3-venv npm  # or dnf install -y if you are on Fedora
+sudo npm install gulp -g
+```
+Run
+
+```bash
+cd askomics
+./startAskomics -d dev -t virtuoso
+```
+
+---
+
+## Contributing
+### As a User
+---------------
+Open a [github issues](https://github.com/askomics/askomics/issues/new)
+
+![issues](images/issues.png "issues")
+
+You can:
+- Describe a bug in AskOmics (Provide as much log as you can have)
+- Suggest a new functionality
+
+You can't:
+- Complain about AskOmics
+
+---
+
+## Contributing
+### As a User
+---------------
+When my issue will be treated ?
+
+You can follow the roadmap [here](https://github.com/askomics/askomics/projects/1)
+
+![roadmap](images/roadmap.png "roadmap")
+
+---
+
+## Contributing
+### As a developper
+---------------
+
+Create the upstream remote in your clone
+
+```bash
+git remote add upstream https://github.com/askomics/askomics.git
+```
+
+Update your fork
+
+```bash
+git fetch upstream
+git merge upstream/master
+```
+
+Create a development branch
+
+```bash
+git checkout -b dev_branch
+```
+
+Implement your new fonctionnality and Write the associated tests
+
+Run tests
+
+```bash
+./venv/bin/python setup.py nosetests -a '!galaxy' # remove -a option if you use a galaxy instance
+```
+
+
+
+---
+
+## Contributing
+---------------
+
+commit your changes
+
+```bash
+git commit
+```
+
+Push to your fork
+
+
+```bash
+git push
+```
+
+Create a Pull Request on Github
+
+![PR](images/pull_request.png "PR")
+
+
+---
+
+## Future
+### Version 18.10
+---------------
+
+Version 18.10 will correct some bugs and add new functionalities. See the [roadmap](https://github.com/askomics/askomics/projects/1)
+for more details
+
+---
+
+## Future
+### Complete redesign
+---------------------
+
+Why a complete redesign ?
+
+- Frontend don't use a framework but a lot of javasripts library
+- Code is hard to understand (not always commented and documented, lot of dead code, hardcoded values ...)
+- Some libraries are outdated (bootstrap 4 is out)
+- Backend and frontend are not completely separated
+- Python tests are broken and JS tests doesn't exists
+
+
+
+---
+
+## Future
+### Complete redesign
+#### Python API
+---------------------
+
+The backend will be a REST API who render json data (no html, frontend will handle it)
+
+- Flask framework (python)
+    * Micro web framework
+    * Light, but have lot of plugins = no useless python library = fast
+- Python API will be completely independent from the frontend
+- Python API can be used with the frontend, or in command line with the askocli tool
+
+
+---
+
+## Future
+### Complete redesign
+#### Frontend
+---------------------
+
+Frontend will be coded with [React](https://reactjs.org/), a Javascript framework.
+
+- React works with components, they take input data and return html. It use JSX syntax.
+- All libraries downloaded and installed in a local folder with one command (`npm install`)
+- Completely independent from the python server
+
+---
+
+## Future
+### Complete redesign
+---------------------
+
+
+![V2](images/askomicsv2.png "v2")
+		</textarea>
+		<script src="../js/remark-latest.min.js"></script>
+		<script src="../js/d3.v5.min.js"></script>
+		<script type="text/javascript" src="../js/loader.js"></script>
+		<script type="text/javascript" src="../js/fusioncharts.js"></script>
+        <script type="text/javascript" src="graph.js"></script>
+		<script>
+			var slideshow = remark.create();
+		</script>
+		<script></script>
+	</body>
+</html>
