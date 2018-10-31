@@ -1,145 +1,3 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<title>AskOmics</title>
-		<style>
-			body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-h1, h2, h3, h4 {
-	font-weight: 400;
-	margin-bottom: 0;
-	margin-top: 0;
-}
-.remark-slide-content h1 {
-	font-size: 3em;
-	display: inline-block;
-}
-
-.remark-slide-content h2 {
-	font-size: 2em;
-	display: inline-block;
-}
-
-.remark-slide-content h3 {
-	font-size: 1.5em;
-	display: inline-block;
-	margin-left: 30px
-}
-
-.remark-slide-content h4 {
-	font-size: 1.2em;
-	display: inline-block;
-	margin-left: 30px
-}
-
-.footnote {
-	position: absolute;
-	bottom: 3em;
-}
-li p { line-height: 1.25em; }
-.red { color: #fa0000; }
-.large { font-size: 2em; }
-a, a > code {
-	color: rgb(249, 38, 114);
-	text-decoration: none;
-}
-code {
-	background: none repeat scroll 0 0 #F8F8FF;
-  border: 1px solid #DEDEDE;
-  border-radius: 3px 	;
-  padding: 0 0.2em;
-}
-.remark-code, .remark-inline-code { font-family: "Bitstream Vera Sans Mono", "Courier", monospace; }
-.remark-code-line-highlighted     { background-color: #373832; }
-.pull-left {
-	float: left;
-	width: 47%;
-}
-.pull-right {
-	float: right;
-	width: 47%;
-}
-.pull-right ~ p {
-	clear: both;
-}
-#slideshow .slide .content code {
-	font-size: 0.8em;
-}
-#slideshow .slide .content pre code {
-	font-size: 0.9em;
-	padding: 15px;
-}
-.main-title, .title {
-	background: #272822;
-	color: #777872;
-	text-shadow: 0 0 20px #333;
-}
-.title h1, .title h2, .main-title h1, .main-title h2 {
-	color: #f3f3f3;
-	line-height: 0.8em;
-}
-/* Custom */
-.remark-code {
-	display: block;
-	padding: 0.5em;
-}
- /* table */
-table {
-	border-collapse: collapse;
-    width: 100%;
-}
-
-table td, table th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-table tr:nth-child(even){background-color: #f2f2f2;}
-
-table tr:hover {background-color: #ddd;}
-
-table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
-}
-
-/* line */
-
-hr {
-	color: #4CAF50;
-}
-
-/* images */
-
-img{
-	display: block;
-    width: 100%;
-	height: 100%;
-}
-
-/* iframe */
-
-iframe {
-    width: 100%;
-	height: 550px;
-	zoom: 0.70;
-
-}
-
-
-
-
-
-
-		</style>
-	</head>
-	<body>
-		<textarea id="source">
 # AskOmics
 -------------------------
 
@@ -283,8 +141,10 @@ make install
 Install dependencies
 
 ```bash
-sudo apt install -y python3 python3-venv npm  # or dnf install -y if you are on Fedora
-sudo npm install gulp -g
+# Ubuntu 18.04
+sudo apt install -y python3 python3-venv python3-dev zlib1g-dev npm
+# Fedora 28
+sudo dnf install -y gcc gcc-c++ redhat-rpm-config zlib-devel bzip2 python3-devel npm
 ```
 
 Get the latest "stable" version of AskOmics
@@ -372,9 +232,12 @@ cd askomics
 Install dependancies
 
 ```bash
-sudo apt install -y python3 python3-venv npm  # or dnf install -y if you are on Fedora
-sudo npm install gulp -g
+# Ubuntu 18.04
+sudo apt install -y python3 python3-venv python3-dev zlib1g-dev npm
+# Fedora 28
+sudo dnf install -y gcc gcc-c++ redhat-rpm-config zlib-devel bzip2 python3-devel npm
 ```
+
 Run
 
 ```bash
@@ -529,15 +392,3 @@ Frontend will be coded with [React](https://reactjs.org/), a Javascript framewor
 
 
 ![V2](images/askomicsv2.png "v2")
-		</textarea>
-		<script src="../js/remark-latest.min.js"></script>
-		<script src="../js/d3.v5.min.js"></script>
-		<script type="text/javascript" src="../js/loader.js"></script>
-		<script type="text/javascript" src="../js/fusioncharts.js"></script>
-        <script type="text/javascript" src="graph.js"></script>
-		<script>
-			var slideshow = remark.create();
-		</script>
-		<script></script>
-	</body>
-</html>

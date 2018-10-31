@@ -11,7 +11,7 @@ htmlfile="index.html"
 
 # First, build html
 markdown-to-slides README.md  -s style.css -l template.html -o index.html
-echo "done"
+
 # Get md5sum
 md5=$(md5sum $mdfile | cut -d " " -f1)
 
