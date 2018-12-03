@@ -357,18 +357,21 @@ docker-compose up -d
 
 ## Installation
 ### User
-#### Genostack install
+#### Genostack
 -----------------
 
-Create a Instance with docker installed and run 
+VM images available on [Genostack](https://genostack.genouest.org)
 
-```bash
-apt-get update && apt-get install git
-git clone https://github.com/askomics/askomics-docker-compose
-./askomics-docker-compose/genostack-install-env.sh
-```
+- virtuoso-opensource_7.2.5.1
+    + Virtuoso 7.2.5.1 [http://openstack-192-168-xxx-xx.genouest.org/virtuoso/sparql]()
 
-AskOmics is available at [http://openstack-192-168-xxx-xx.genouest.org/askomics]()
+- askomics_18.10
+   + AskOmics at [http://openstack-192-168-xxx-xx.genouest.org/askomics]()
+
+- ubuntu18.04_askodev
+    + Dockerized Virtuoso 7.2.5.1 at [http://openstack-192-168-xxx-xx.genouest.org/virtuoso/sparql]()
+    + Dockerized Galaxy at [http://openstack-192-168-xxx-xx.genouest.org/galaxy]()
+    + AskOmics at [http://openstack-192-168-xxx-xx.genouest.org/askomics]() (not installed)
 
 ---
 
