@@ -78,26 +78,63 @@ Data are converted into RDF
 ### Integration
 ---------
 
-Content
 ```ttl
-:geneA rdf:type :Gene ;
-       rdfs:label "geneA"^^xsd :string ;
-       :label "geneA"^^ xsd:string ;
-       :start 500 ;
-       :end 600 .
+:AT1G01010 rdf:type :transcript ;
+           rdfs:label "AT1G01010"^^xsd:string ;
+           askomics:position_taxon askomics:Arabidopsis_thaliana ;
+           askomics:featureName "NAC001"^^xsd:string ;
+           askomics:position_ref askomics:At1 ;
+           askomics:position_start 3631 ;
+           askomics:position_end 5899 ;
+           askomics:featureType askomics:gene ;
+           askomics:position_strand askomics:plus ;
+           askomics:biotype askomics:protein_coding ;
+           faldo:location [ a faldo:Region ;
+                            faldo:begin [ a faldo:ExactPosition;
+                                          a faldo:ForwardStrandPosition;
+                                          faldo:position 3631;
+                                          faldo:reference askomics:At1 ;
+                                              ];
+                            faldo:end [ a faldo:ExactPosition;
+                                        a faldo:ForwardStrandPosition;
+                                        faldo:position 5899;
+                                        faldo:reference askomics:At1;
+                                            ]] .
 ```
 
-Abstraction
-```ttl
-:Gene rdf:type owl:Class ;
-      displaySetting:entity "true"^^xsd:boolean ;
-      rdfs:label "Gene"^^xsd:string .
+---
 
-:label rdf:type owl:DatatypeProperty ;
-       rdfs:label "label"^^xsd:string ;
-       rdfs:domain :Gene ;
-       rdfs:range xsd:string .
+## Overview
+### Integration
+---------
+
+
+```ttl
+:transcript rdf:type owl:Class ;
+           askomics:entity "true"^^xsd:boolean ;
+           rdfs:label "transcript"^^xsd:string .
+
+askomics:featureName askomics:attribute "true"^^xsd:boolean .
+                     askomics:attributeOrder "3"^^xsd:decimal .
+                     rdf:type owl:DatatypeProperty ;
+                     rdfs:label "featureName"^^xsd:string ;
+                     rdfs:domain :transcript ;
+                     rdfs:range xsd:string .
+
+askomics:featureType askomics:attribute "true"^^xsd:boolean .
+                     askomics:attributeOrder "7"^^xsd:decimal .
+                     rdf:type owl:DatatypeProperty ;
+                     rdfs:label "featureType"^^xsd:string ;
+                     rdfs:domain :transcript ;
+                     rdfs:range askomics:featureTypeCategory .
+
+askomics:featureTypeCategory askomics:category askomics:miRNA_gene , 
+                               askomics:tRNA_gene , 
+                               askomics:gene , 
+                               askomics:pseudogene , 
+                               askomics:ncRNA_gene .
 ```
+
 
 ---
 
@@ -129,7 +166,7 @@ AskOmics can perform queries on external triplestores.
 - AskOmics endpoints, using AskOmics abstraction
 - External endpoints (Uniprot, DBpedia ...) using a local abstraction of the endpoint
 
-A federated query engine  decompose the query into sub-queries and execute them on the proper endpoints.
+A federated query engine decompose the query into sub-queries and execute them on the proper endpoints.
 
 ---
 
@@ -154,7 +191,7 @@ AskOmics can be used with [Galaxy](https://galaxyproject.org/)
 
 - Load galaxy datasets into AskOmics
 - Save AskOmics results into a Galaxy dataset
-- save an AskOmics query into a Galaxy dataset
+- Save an AskOmics query into a Galaxy dataset
 
 Galaxy can interact with AskOmics
 
