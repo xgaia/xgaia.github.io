@@ -290,6 +290,23 @@ systemctl status virtuoso.service
 
 
 ## Installation
+### Virtuoso
+-----------------
+
+```bash
+docker pull askomics/virtuoso
+
+docker run --name my-virtuoso \                                                                                                                              
+    -p 8890:8890 -p 1111:1111 \
+    -e SPARQL_UPDATE=true \ 
+    -v /tmp/virtuoso_data:/data \         
+    -d askomics/virtuoso
+```
+
+---
+
+
+## Installation
 ### User
 #### Manual
 -----------------
