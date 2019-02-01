@@ -29,3 +29,7 @@ DSparK is the spark implementation of [dsk](https://github.com/gatb/dsk), a kmer
 #### AG CATI 03/12/2018
 
 [Slides](/AskOmics/20181203)
+
+#### GT Dyliss 04/02/2019
+
+[Slides](/AskOmics/20190204)
