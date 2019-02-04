@@ -14,19 +14,18 @@
     - federated queries
     - Galaxy interactions
 
-2. Software architecture
+2. Data schema
+    - Brassica expression profile
+    - Human expression profile
+    - Seaweed metabolic network
+
+3. Software architecture
     - Backend - Python, Pyramid framework
     - Frontend - Javascript, jquery
 
-3. Refactoring
+4. Refactoring
     - Backend - Python, Flask framework
     - Frontend - Javascript, react
-
-4. Data schema
-    - Brassica expression profile
-    - Human expression profile
-    - Algue metabolic network
-
 ---
 
 
@@ -80,29 +79,8 @@ Data are converted into RDF
 ### Integration
 ---------
 
-```ttl
-:AT1G01010 rdf:type :transcript ;
-           rdfs:label "AT1G01010"^^xsd:string ;
-           askomics:position_taxon askomics:Arabidopsis_thaliana ;
-           askomics:featureName "NAC001"^^xsd:string ;
-           askomics:position_ref askomics:At1 ;
-           askomics:position_start 3631 ;
-           askomics:position_end 5899 ;
-           askomics:featureType askomics:gene ;
-           askomics:position_strand askomics:plus ;
-           askomics:biotype askomics:protein_coding ;
-           faldo:location [ a faldo:Region ;
-                            faldo:begin [ a faldo:ExactPosition;
-                                          a faldo:ForwardStrandPosition;
-                                          faldo:position 3631;
-                                          faldo:reference askomics:At1 ;
-                                              ];
-                            faldo:end [ a faldo:ExactPosition;
-                                        a faldo:ForwardStrandPosition;
-                                        faldo:position 5899;
-                                        faldo:reference askomics:At1;
-                                            ]] .
-```
+![content](images/content.png "content")
+
 
 ---
 
@@ -111,31 +89,7 @@ Data are converted into RDF
 ---------
 
 
-```ttl
-:transcript rdf:type owl:Class ;
-           askomics:entity "true"^^xsd:boolean ;
-           rdfs:label "transcript"^^xsd:string .
-
-askomics:featureName askomics:attribute "true"^^xsd:boolean .
-                     askomics:attributeOrder "3"^^xsd:decimal .
-                     rdf:type owl:DatatypeProperty ;
-                     rdfs:label "featureName"^^xsd:string ;
-                     rdfs:domain :transcript ;
-                     rdfs:range xsd:string .
-
-askomics:featureType askomics:attribute "true"^^xsd:boolean .
-                     askomics:attributeOrder "7"^^xsd:decimal .
-                     rdf:type owl:DatatypeProperty ;
-                     rdfs:label "featureType"^^xsd:string ;
-                     rdfs:domain :transcript ;
-                     rdfs:range askomics:featureTypeCategory .
-
-askomics:featureTypeCategory askomics:category askomics:miRNA_gene , 
-                               askomics:tRNA_gene , 
-                               askomics:gene , 
-                               askomics:pseudogene , 
-                               askomics:ncRNA_gene .
-```
+![abstraction](images/abstraction.png "abstraction")
 
 
 ---
@@ -168,7 +122,7 @@ AskOmics can perform queries on external triplestores.
 - AskOmics endpoints, using AskOmics abstraction
 - External endpoints (Uniprot, DBpedia ...) using a local abstraction of the endpoint
 
-A federated query engine decompose the query into sub-queries and execute them on the proper endpoints.
+A federated query engine decomposes the query into sub-queries and execute them on the proper endpoints.
 
 ---
 
@@ -201,6 +155,73 @@ Galaxy can interact with AskOmics
 - AskOmics interactive environment
 
 
+---
+
+
+## Overview
+### Galaxy integrations
+---------
+
+![gie](images/gie.png "gie")
+
+
+---
+
+
+
+## Data Schema
+---------------
+
+AskOmics is used in the following studies:
+
+- Brassica expression profile
+- Human expression profile
+- Seaweed metabolic networks
+
+User want some templates to structure their data
+
+
+
+---
+
+
+## Data Schema
+### Brassica expression profiles
+---------------
+
+
+![brassica_schema](images/brassica_schema.png "brassica_schema")
+
+
+---
+
+
+## Data Schema
+### Human expression profiles
+---------------
+
+
+![human_schema](images/human_schema.png "human_schema")
+
+
+---
+
+
+
+## Data Schema
+### Seaweed Metabolic network
+---------------
+
+
+![metabolic_network_schema](images/metabolic_network_schema.png "metabolic_network_schema")
+
+
+---
+
+## Data Schema
+---------------
+
+![schema](images/general_schema.png "schema")
 
 ---
 
@@ -515,52 +536,5 @@ To change the state of a component, use the `setState()` method. When the state 
 
 [Demo](http://localhost:5000)
 
-
----
-
-## Data Schema
----------------
-
-
----
-
-
-## Data Schema
-### Brassica expression
----------------
-
-
-![brassica_schema](images/brassica_schema.png "brassica_schema")
-
-
----
-
-
-## Data Schema
-### Human expression
----------------
-
-
-![human_schema](images/human_schema.png "human_schema")
-
-
----
-
-
-
-## Data Schema
-### Metabolic network
----------------
-
-
-![metabolic_network_schema](images/metabolic_network_schema.png "metabolic_network_schema")
-
-
----
-
-## Data Schema
----------------
-
-![schema](images/general_schema.png "schema")
 
 ---
