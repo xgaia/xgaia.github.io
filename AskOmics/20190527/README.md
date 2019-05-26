@@ -514,7 +514,7 @@ Docs of all version are available at [flaskomics.readthedocs.io](https://flaskom
 ## Quiz
 ---------------
 
-- Comment est appeler les données nécessaire à la construction du graph d’interrogation des données ?
+- Comment sont appelées les données nécessaires à la construction du graph d’interrogation des données ?
 
 --
 
@@ -527,7 +527,7 @@ Docs of all version are available at [flaskomics.readthedocs.io](https://flaskom
 ## Quiz
 ---------------
 
-- Pour identifier un jeu de donnée publique, une icone représentant la terre est affiché. Mais quel continent la terre nous montre ?
+- Pour identifier un jeu de donnée publique, une icône représentant la terre est affichée. Mais quel continent nous montre-t-elle ?
 
 --
 
@@ -554,23 +554,23 @@ Docs of all version are available at [flaskomics.readthedocs.io](https://flaskom
 ## Quiz
 ---------------
 
-- Quelle est l’intérêt de Celery ?
+- Quel est l’intérêt de Celery ?
 
 --
 
-  * Exécuter des taches automatiquement à intervalle régulier
+  * Exécuter des tâches automatiquement à intervalle régulier
 
-  * Exécuter les tâches longue de façon asynchrone
+  * Exécuter les tâches longues de façon asynchrone
 
   * Sa digestion consomme plus de calories que sa consommation n'en apporte<sup>*</sup>
 
 
 
-\* Selon certaines source
+\* Selon certaines sources
 
 --
 
-<div class="box box-info"><p><center>Exécuter les tâches longue de façon asynchrone<center></p><div>
+<div class="box box-info"><p><center>Exécuter les tâches longues de façon asynchrone<center></p><div>
 
 
 ---
