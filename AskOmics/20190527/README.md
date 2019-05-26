@@ -477,6 +477,17 @@ Docs of all version are available at [flaskomics.readthedocs.io](https://flaskom
 ---
 
 
+## AskOmics 3
+---------------
+
+<br><br><br>
+<center>
+    <a href="localhost:5000" target="_newtab" rel="noopener noreferrer">AskOmics</a>    
+</center>
+
+---
+
+
 ## C4EST LA FIN
 ---------------
 <br><br><br>
