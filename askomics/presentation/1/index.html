@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>AskOmics</title>
+		<style>
+			body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h1, h2, h3, h4 {
+	font-weight: 400;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+.remark-slide-content h1 {
+	font-size: 3em;
+	display: inline-block;
+}
+
+.remark-slide-content h2 {
+	font-size: 2em;
+	display: inline-block;
+}
+
+.remark-slide-content h3 {
+	font-size: 1.5em;
+	display: inline-block;
+	margin-left: 30px
+}
+
+.remark-slide-content h4 {
+	font-size: 1.2em;
+	display: inline-block;
+	margin-left: 30px
+}
+
+.footnote {
+	position: absolute;
+	bottom: 3em;
+}
+li p { line-height: 1.25em; }
+.red { color: #fa0000; }
+.large { font-size: 2em; }
+a, a > code {
+	color: rgb(249, 38, 114);
+	text-decoration: none;
+}
+code {
+	background: none repeat scroll 0 0 #F8F8FF;
+  border: 1px solid #DEDEDE;
+  border-radius: 3px 	;
+  padding: 0 0.2em;
+}
+.remark-code, .remark-inline-code { font-family: "Bitstream Vera Sans Mono", "Courier", monospace; }
+.remark-code-line-highlighted     { background-color: #373832; }
+.pull-left {
+	float: left;
+	width: 47%;
+}
+.pull-right {
+	float: right;
+	width: 47%;
+}
+.pull-right ~ p {
+	clear: both;
+}
+#slideshow .slide .content code {
+	font-size: 0.8em;
+}
+#slideshow .slide .content pre code {
+	font-size: 0.9em;
+	padding: 15px;
+}
+.main-title, .title {
+	background: #272822;
+	color: #777872;
+	text-shadow: 0 0 20px #333;
+}
+.title h1, .title h2, .main-title h1, .main-title h2 {
+	color: #f3f3f3;
+	line-height: 0.8em;
+}
+/* Custom */
+.remark-code {
+	display: block;
+	padding: 0.5em;
+}
+
+.small-size {
+    font-size: x-small;
+}
+
+ /* table 
+table {
+	border-collapse: collapse;
+    width: 100%;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tr:hover {background-color: #ddd;}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+*/
+/* line */
+
+hr {
+	color: #4CAF50;
+}
+
+/* images */
+
+img{
+	display: block;
+    width: 100%;
+	height: 100%;
+}
+
+/* iframe */
+
+iframe {
+    width: 100%;
+	height: 550px;
+}
+
+.small-size {
+    font-size: x-small;
+}
+
+
+.small-frame {
+    height: 600px;
+    width: 900px;
+
+    transform: scale(0.8); 
+    transform-origin: 0 0;
+}
+
+.grey {
+    color: grey;
+}
+		</style>
+	</head>
+	<body>
+		<textarea id="source">
+# AskOmics
+-------------------------
+
+.footnote[Xavier Garnier, Dyliss team, Inria]
+
+---
+
+## Table of contents
+---------
+
+1. Overview
+
+2. Data integration
+    - RDF
+    - AskOmics's RDF conversion
+
+3. Data query
+    - Overview
+    - SPARQL
+    - AskOmics's SPARQL generation
+---
+
+
+## Overview
+---------
+
+AskOmics is a Web tool to integrate datasets and query them through a graphical interface
+
+- Integration: Convert TSV/CSV/GFF Data into RDF triples
+- Query: Cross different data sources and extract information
+
+User build a query through an interactive graph ⇒ User don’t need to know semantic web languages (RDF/SPARQL)
+
+---
+
+
+## Data integration
+### RDF
+---------
+
+RDF (Resource Description Framework) is a graph model designed to formally describe Web resources and their metadata. It's the language of the semantic web.
+
+RDF is structured into triples: (subject, predicate, object), Subject and predicate are *URI*, Object can be an *URI* or a *litteral*
+
+URI (Uniform Resource Identifier)
+
+http://www.semanticweb.org/user/ontologies/2018/1#AT001
+
+- Subject: a ressource to describe (URI)
+- Predicate: a property (URI)
+- Object: property's value (Litteral or URI)
+
+--
+
+(AT001, type, gene)
+
+(AT001, chromosome, AT1)
+
+(AT001, start, 1)
+
+
+---
+
+
+## Data integration
+### RDF
+#### Turtle
+---------
+
+Turtle (Terse RDF Triple Language) is a RDF syntaxe
+
+
+```
+@prefix : <http://www.semanticweb.org/user/ontologies/2018/1#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+:AT001 rdf:type :gene .
+:AT001 :chromosome :AT1 .
+```
+
+---
+
+
+## Data integration
+### AskOmics's RDF conversion
+
+---------
+
+During integration, AskOmics generate 2 kind of data, *Abstraction* and *Content*
+
+![content-abstraction](images/content_abstraction.png "content-abstraction")
+
+- Content is the data
+- Abstraction is a description of data (relation between entities, attributes ...)
+
+
+
+---
+
+## Data integration
+### RDF conversion
+#### CSV formatting
+---------
+
+- Abstraction generation
+
+AskOmics use the CSV header to create the abstraction
+
+![abstraction_generation](images/abstraction_generation.png "abstraction_generation")
+
+```
+@prefix : <http://www.semanticweb.org/user/ontologies/2018/1#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:gene rdf:type :entity .
+:gene rdf:type :startPoint .
+:gene rdf:type owl:Class .
+:gene rdfs:label "Gene" .
+```
+```
+:start rdf:type owl:DatatypeProperty .
+:start rdfs:label "start" .
+:start rdfs:domain :Gene .
+:start rdfs:range xsd:decimal .
+```
+
+
+
+---
+
+## Data integration
+### RDF conversion
+#### CSV formatting
+---------
+
+![abstraction_generation_link](images/abstraction_generation_link.png "abstraction_generation_link")
+
+```
+:transcriptomic rdf:type :entity .
+:transcriptomic rdf:type :startPoint .
+:transcriptomic rdf:type owl:Class .
+:transcriptomic rdfs:label "Transcriptomic" .
+```
+
+```
+:concerns rdf:type :AskomicsRelation .
+:concerns rdf:type owl:ObjectProperty .
+:concerns rdfs:label "concerns" .
+:concerns rdfs:domain :DifferentialExpression .
+:concerns rdfs:range :Gene .
+```
+
+```
+:dpi rdf:type owl:DatatypeProperty .
+:dpi rdfs:label "dpi" .
+:dpi rdfs:domain :DifferentialExpression .
+:dpi rdfs:range xsd:decimal .
+```
+
+---
+
+## Data integration
+### RDF conversion
+#### CSV formatting
+---------
+
+![content_generation](images/content_generation.png "content_generation")
+
+```
+:AT001 rdf:type :gene ;
+           rdfs:label "AT001" ;
+           :chromosome :AT1 ;
+           :start 1 ;
+           :end 50 .
+:AT002 rdf:type :gene ;
+           rdfs:label "AT002" ;
+           :chromosome :AT2 ;
+           :start 4000 ;
+           :end 7000 .
+```
+
+
+---
+
+
+## Data query
+### overview
+---------
+
+
+User explore his data using the *Query Builder*
+
+![query_builder](images/query_builder.png "query_builder")
+
+The *Query Builer* is displayed thanks to the *Abstraction*
+
+
+---
+
+
+
+
+## Data query
+### SPARQL
+---------
+
+SPARQL (SPARQL Protocol and RDF Query Language) is the language to manipulate (insert, update and query) RDF data
+
+
+---
+
+
+
+
+## Data query
+### SPARQL generation
+---------
+
+
+
+---
+
+
+
+
+		</textarea>
+		<script src="../../../js/remark-latest.min.js"></script>
+		<script src="issues.js"></script>
+
+		<script>
+			var slideshow = remark.create({
+				highlightStyle: 'monokai',
+			});
+		</script>
+		<script></script>
+	</body>
+</html>

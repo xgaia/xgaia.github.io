@@ -11,7 +11,7 @@ On this page, you will find some slides about my work.
 
 DSparK is the spark implementation of [dsk](https://github.com/gatb/dsk), a kmer counting program.
 
-[slides](/DSparK)
+[slides](/dspark)
 
 ### AskOmics
 
@@ -20,20 +20,24 @@ DSparK is the spark implementation of [dsk](https://github.com/gatb/dsk), a kmer
 
 #### AskO-meeting 19/10/2018
 
-[Slides](/AskOmics/20181019)
+[Slides](/askomics/meeting/1)
 
 #### AskO-meeting 31/10/2018
 
-[Slides](/AskOmics/20181031)
+[Slides](/askomics/meeting/2)
 
 #### AG CATI 03/12/2018
 
-[Slides](/AskOmics/20181203)
+[Slides](/askomics/cati/ag/1)
 
 #### GT Dyliss 04/02/2019
 
-[Slides](/AskOmics/20190204)
+[Slides](/askomics/dyliss/gt/1)
 
 #### Séminaire au vert 27/05/2019
 
-[Slides (kitch version!)](/AskOmics/20190527)
+[Slides (kitch version!)](/askomics/sav/2019)
+
+#### Présentation stagiaire INRA 12/06/2019
+
+[Slides](/askomics/presentation/1)
