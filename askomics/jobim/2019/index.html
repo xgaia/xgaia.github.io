@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>AskOmics</title>
+		<title>Jobim 2019</title>
 		<style>
 			body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -154,546 +154,225 @@ iframe {
 	</head>
 	<body>
 		<textarea id="source">
-# AskOmics
+# Jobim 2019
 -------------------------
 
-.footnote[Xavier Garnier, Dyliss team, Inria]
+<br><br><br>
+<center>
+    <h3>
+        AskOmics, a user-friendly interface to semantic web technologies for integrating local datasets with references resources
+    </h3>    
+</center>
+
+
+.footnote[Xavier Garnier, Anthony Bretaudeau, Fabrice Legeai, Anne Siegel and Olivier Dameron]
 
 ---
 
 ## Table of contents
 ---------
 
-1. Overview
-    - Integration
-    - Query
-    - federated queries
-    - Galaxy interactions
+1. AskOmics
+    - A nightmare of data
+    - How to explore data
+    - The semantic web
+    - AskOmics as a solution
+2. Demo
+    - Input Files
+    - Questions
+    - Demo
+3. To go further
+    - Other functionalities
+    - On going work
+    - Take home message(s)
 
-2. Data schema
-    - Brassica expression profile
-    - Human expression profile
-    - Seaweed metabolic network
-
-3. Software architecture
-    - Backend - Python, Pyramid framework
-    - Frontend - Javascript, jquery
-
-4. Refactoring
-    - Backend - Python, Flask framework
-    - Frontend - Javascript, react
 ---
 
 
-## Overview
+## AskOmics
+### A nightmare of data
 ---------
 
-AskOmics is a Web tool to integrate datasets and query them through a graphical interface
+- Big Data: Datasets so **large** or **complex** that traditional data processing is inadequate.
 
-- Integration: Convert TSV/CSV/GFF Data into RDF triples
-- Query: Cross different data sources and extract information
+- More than 1500 databases, lack of interoperability, multiple file format
 
-User build a query through an interactive graph ⇒ User don’t need to know semantic web languages (RDF/SPARQL)
+
+![data_deluge](images/data_deluge.png "data_deluge")
 
 ---
 
-
-## Overview
-### Integration
+## AskOmics
+### How to explore data
 ---------
 
-During integration, user provides his biological data (TSV/CSV, GFF or BED) and AskOmics automatically detect what he wants to integrate
-
-
-
-
-<iframe class="small-frame" src="integration_table.html"></iframe>
-
-
-
+![schema](images/schema.png "schema")
 
 ---
 
 
-
-
-## Overview
-### Integration
+## AskOmics
+### How to explore data
 ---------
 
-Data are converted into RDF
+- Entity (gene, DE test, Reaction ...)
+- Attribute of entity (chromosome, start position, end position ...)
+- Relation (a DE test concern a gene, a reaction is describe in a pathway)
 
-![content-abstraction](images/content_abstraction.png "content-abstraction")
-
-- Content is the data
-- Abstraction is a description of data (relation between entities, attributes ...)
-
+Biological questions requires to combine entities from multiple datasets.
 
 ---
 
-## Overview
-### Integration
+
+## AskOmics
+### The semantic web
 ---------
 
-![content](images/content.png "content")
+- RDF (resource description framework) can well describe entities and relations
+- SPARQL (SPARQL protocol and query language) can be used to extract information
 
+But how to simply use this technologies?
 
 ---
 
-## Overview
-### Integration
+
+## AskOmics
+### AskOmics as a solution
 ---------
 
+AskOmics is a web software for data integration and query using semantic web
 
-![abstraction](images/abstraction.png "abstraction")
+- Convert multiple data format into rdf triples, and store them into a triplestore
+
+- Query the rdf graph threw a user-friendly interface
+
+- Save, redo and Share queries and results
 
 
 ---
 
-
-
-## Overview
-### Query
+## Demo
+### Input files
 ---------
 
-User explore his data using the graphical interface
+- Genetic files
+    * *Arabidopsis thaliana* (GFF, TAIR)
+    * *Brassica napus* genes (GFF, Bipaa plateforme)
+    * Orthology relation (TSV, Chalhoub *et al*, 2014)
 
+- Differential expression
+    * Differential expression of *Brassica napus* genes between roots and leaves  (TSV, EdgeR + AskoR)
 
-![content-abstraction](images/askoquery.png "askoquery")
-
-Abstraction is requested to build the query graph and the category filters.
-
-Content is requested to retrieve the results.
-
-
+- Pathway
+    * genes reaction and patway data of *Brassica napus* (TSV, Metacyc + AuReMe)
 
 ---
 
-## Overview
-### Federated queries
+## Demo
+### Biological questions
 ---------
 
-AskOmics can perform queries on external triplestores.
+- Which genes of *Brassica napus* are more strongly expressed in the roots than in the leaves?
 
-- AskOmics endpoints, using AskOmics abstraction
-- External endpoints (Uniprot, DBpedia ...) using a local abstraction of the endpoint
+- What are their ortholog in *Arabidospis thaliana*? Are they in a QTL?
 
-A federated query engine decomposes the query into sub-queries and execute them on the proper endpoints.
+- In which biological reactions are the genes obtained involved, and in which metabolic pathways are they involved?
 
 ---
 
 
-## Overview
-### Federated queries
+
+## Demo
 ---------
 
 
-![content-abstraction](images/federated.png "federated")
+<br>
+<center>
+    <h3>
+        C4EST PARTI POUR LA <a href="http://localhost:6543">D2MO</a> §§§
+    </h3>    
+</center>
+
+![askomics_logo](images/askomics_logo.png "askomics_logo")
+
 
 ---
 
 
 
-
-## Overview
-### Galaxy integrations
+## To go further
+### On going work
 ---------
 
-AskOmics can be used with [Galaxy](https://galaxyproject.org/)
+- Support for multiple endpoint (FederetedQueryScaler, wimmics)
 
-- Load galaxy datasets into AskOmics
-- Save AskOmics results into a Galaxy dataset
-- Save an AskOmics query into a Galaxy dataset
+- Extend query expressivity (and/or)
 
-Galaxy can interact with AskOmics
+- Reach a larger user base
+    - Offer a library of templates and queries
 
-- AskOmics tool to send datasets to AskOmics
-- AskOmics interactive environment
+- Improve reproducibility and sharing functionalities
+    - Save and share queries
+    - Automated integration and query with the API
+
+- Refactoring interface
+    - API: Flask microframework (python)
+    - Task queue: Celery (python)
+    - Front: React library (JS)
 
 
 ---
 
 
-## Overview
-### Galaxy integrations
+## TGF
+### Collaboration
 ---------
 
-![gie](images/gie.png "gie")
+AskOmics users:
 
+- C Bettembourg – IGEPP aphids (D. Tagu)
+- A. Evrard – IGEPP rapeseed (M. Jubault)
+- M.Aite/C.Frioux/A.Siegel AUREME
+- C.Bettembourg - Sanofi
+- P. Leroux/F.Lecerf/S.Lagarrigue (Metachick, metabolome)
+- IFB project (CIRAD/INRA) - Connecting AskOmics with ”SouthGreen” endpoint
+- M. Rousseau/J.Lucas/J.Ferreira de Carvalho/S.Knosp - Rapeseed
+- A. Sarniguet,J.Chappat - Rhysophere Colza
+- M. Louarn Hematology
+- M. Conan Seaweed
+- L. Guillot-Cloarec Uniprot/NextProt
+- S. Daval (INRA) - Meta-transcriptomics
+- BIPAA (Arthropodes)/BBIP (Rapeseed) endpoint in production mode
+- M. Wery these CIFRE - Sanofi
+- M. Louarn these INSERM-INRIA
+- J. Yon - Pegase, INRA
+- M. Gonzalez - CGR, Universidad de Chile
+- O. Chakoory/E. Forano - INRA
+
+---
+
+## TGF
+### Contribution
+---------
+
+AskOmics is the result of a strong collaboration between INRA and Inria. It received contributions from:
+
+AskOmics received contributions from :
+- Meziane Aite (Inria)
+- Arnaud Belcour (intern)
+- Charles Bettembourg (postdoc + Sanofi)
+- Anthony Bretaudeau (INRA)
+- Yvanne Chaussin (intern)
+- Olivier Dameron (Univ. Rennes 1)
+- Aurélie Evrard (postdoc INRA)
+- Olivier Filangi (INRA)
+- Xavier Garnier (intern + INRA, then Inria)
+- Maël Kerbiriou (intern)
+- Fabrice Legeai (INRA)
 
 ---
 
 
-
-## Data Schema
----------------
-
-AskOmics is used in the following studies:
-
-- Brassica expression profile
-- Human expression profile
-- Seaweed metabolic networks
-
-User want some templates to structure their data
-
-
-
----
-
-
-## Data Schema
-### Brassica expression profiles
----------------
-
-
-![brassica_schema](images/brassica_schema.png "brassica_schema")
-
-
----
-
-
-## Data Schema
-### Human expression profiles
----------------
-
-
-![human_schema](images/human_schema.png "human_schema")
-
-
----
-
-
-
-## Data Schema
-### Seaweed Metabolic network
----------------
-
-
-![metabolic_network_schema](images/metabolic_network_schema.png "metabolic_network_schema")
-
-
----
-
-## Data Schema
----------------
-
-![schema](images/general_schema.png "schema")
-
----
-
-
-
-## Software architecture
--------------
-
----
-
-## Software architecture
--------------
-
-
-AskOmics is composed of 3 part
-
-- Backend: [Pyramid](https://trypyramid.com) framework
-- Frontend: Javascript ([jquery](https://jquery.com) + [d3.js](https://d3js.org))
-- Triplestore
-
-
-
----
-
-
-## Software architecture
-### Backend
--------------
-
-[http://localhost:6543](http://localhost:6543)
-
-
-`__init__.py`
-```python
-def main(global_config, **settings):
-    """ This function returns a Pyramid WSGI application."""
-    config.add_route('home', '/')
-```
-
-`views.py`
-```python
-@view_config(route_name='home', renderer='static/src/templates/index.pt')
-def my_view(request):
-    return {'project': 'Askomics'}
-```
-
-`static/src/templates/index.pt`
-```html
-<script>
-    new IHMLocal().start();
-</script>
-```
-
----
-
-
-## Software architecture
-### Frontend
--------------
-![asko1](images/start_button.png "start_button")
-
-```html
-<button class="btn btn-default"  id="starter" onclick="__ihm.startSession();">Start</button>
-```
-Or
-
-```javascript
-$("#starter").on('click', function(d) {
-  // do something
-});
-```
-
-
-
----
-
-
-## Software architecture
-### Frontend
--------------
-
-`.js`
-```javascript
-login(username, password){
-
-    let service = new RestServiceJs('login');
-
-    let model = {
-      'username': username,
-      'password': password
-    };
-
-    service.post(model, (data) => {
-        this.username = data.username;
-        this.admin = data.admin;
-        this.blocked = data.blocked;
-        this.galaxy = data.galaxy;
-    });
-}
-```
-
----
-
-## Software architecture
-### Frontend
--------------
-`__init__.py`
-```python
-config.add_route('login', '/login')
-```
-
-`ask_view.py`
-```python
-@view_config(route_name='login', request_method='POST')
-def login(self):
-    # ...
-    return {
-        'username': username,
-        'admin': admin,
-        'blocked': blocked,
-        'galaxy': galaxy,
-    }
-```
-
----
-
-## Software architecture
-### Frontend
--------------
-[handlebars](http://handlebarsjs.com/) templating
-
-`.js`
-```javascript
-function displayTSVForm(file) {
-
-    let template = AskOmics.templates.csv_form;
-    let context = {idfile: getIdFile(file),file: file, admin: admin};
-    let html = template(context);
-    $("#content_integration").append(html);
-}
-```
-
-`static/src/templates/handlebars/csv_form.hbs`
-```handlebars
-{{#each file.headers}}
-    <th class='column_header'>
-        {{#unless @first}}
-            <input type='checkbox' class='toggle_column_present' checked />
-        {{/unless}}
-        <input class='header-text' value="{{this}}"></input>
-
-    </th>
-{{/each}}
-```
-
----
-
-## Refactoring
----------------
-
-
-Lot of problems with the actual version
-
-- Lot of bugs (<inline id="issues-number"></inline> open issues)
-- Dead code
-- Deprecated js libraries
-- Missing doc
-
-=> Need a complete redesign:
-
-
----
-
-
-
-## Refactoring
-### Backend
----------------
-
-[Flask](http://flask.pocoo.org/) is a python microframework
-
-"Micro" mean keep the core simple, but extensible.
-
-```python
-from flask import Flask
-app = Flask(__name__)
-
-@app.route("/")
-def hello():
-    return "Hello World!"
-```
-
----
-
-## Refactoring
-### Backend
----------------
-
-The view route (`/`) render a html template
-
-```python
-@app.route('/')
-def home():
-    return render_template('index.html')
-```
-The html template have the js code of AskOmics
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-   <!--  ...  -->
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="{{url_for('static', filename='js/askomics.js')}}"></script>
-  </body>
-</html>
-```
-
----
-
-## Refactoring
-### Backend
----------------
-
-API routes (`/api/something`) render json
-
-```python
-@app.route('/api/auth/login', methods=['POST'])
-def login():
-    data = request.get_json()
-
-    local_auth = LocalAuth(app, session)
-    authentication = local_auth.authenticate_user(data)
-
-    if not authentication['error']:
-        session['user'] = authentication['user']
-
-    return jsonify({
-        'error': authentication['error'],
-        'errorMessage': authentication['error_messages'],
-        'user': authentication['user']
-        })
-```
-
----
-
-## Refactoring
-### Frontend
----------------
-
-[React](https://reactjs.org/) is a JavaScript library for user interface. It build encapsulated components that manage their own state.
-
-```javascript
-class HelloMessage extends React.Component {
-  render() {
-    return (
-      <div>
-        Hello {this.props.name}
-      </div>
-    )
-  }
-}
-
-ReactDOM.render(
-  <HelloMessage name="Taylor" />,
-  document.getElementById('hello-example')
-)
-```
-
-- JavaScript ES6 (classes, arrow functions, ...)
-- JSX syntax
-
----
-
-## Refactoring
-### Frontend
----------------
-
-A component is a class who contains:
-
-- props (properties) : immutable property of a component
-- state : the state of the component
-
-- a `constructor` (define the initial state)
-- specific methods
-    - `componentDidMount` (executed when a component is mounted)
-    - `componentWillUnmout` (executed before a component is destroyed)
-- a `render` method (render html using jsx syntax)
-
-
-To change the state of a component, use the `setState()` method. When the state change, all the component using the states are re-rendered.
-
-
----
-
-## Refactoring
-### Frontend
----------------
-
-
-![react_diagram](images/react_diagram.png "react_diagram")
-
----
-
-
-
-## Refactoring
-### Frontend
----------------
-
-[Demo](http://localhost:5000)
-
-
----
 
 		</textarea>
 		<script src="../../../js/remark-latest.min.js"></script>
