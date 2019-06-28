@@ -17,18 +17,11 @@
 ---------
 
 1. AskOmics
-    - A nightmare of data
-    - How to explore data
-    - The semantic web
-    - AskOmics as a solution
+
 2. Demo
-    - Input Files
-    - Questions
-    - Demo
-3. To go further
-    - Other functionalities
-    - On going work
-    - Take home message(s)
+
+3. What's next?
+
 
 ---
 
@@ -36,6 +29,8 @@
 ## AskOmics
 ### A nightmare of data
 ---------
+
+--
 
 - Big Data: Datasets so **large** or **complex** that traditional data processing is inadequate.
 
@@ -59,11 +54,21 @@
 ### How to explore data
 ---------
 
-- Entity (gene, DE test, Reaction ...)
-- Attribute of entity (chromosome, start position, end position ...)
-- Relation (a DE test concern a gene, a reaction is describe in a pathway)
+- <font color="red">Entity</font>
 
-Biological questions requires to combine entities from multiple datasets.
+- <font color="green">Attribute</font> of entity
+
+- <font color="blue">Relation</font> between entities
+
+--
+
+
+<font color="red">Gene</font> have a <font color="green">chromosome</font><br><br>
+
+
+<font color="red">Reaction</font> <font color="blue">is in</font> <font color="red">Pathway</font>
+
+
 
 ---
 
@@ -73,24 +78,58 @@ Biological questions requires to combine entities from multiple datasets.
 ---------
 
 - RDF (resource description framework) can well describe entities and relations
+
+```
+:gene rdf:type owl:Class .
+:chromosome rdf:type owl:ObjectProperty .
+:chromosome rdfs:domain :Gene .
+
+:AT001 rdf:type :Gene ;
+       rdfs:label "AT001" ;
+       :chromosome :AT1 ;
+       :end 40000 ;
+       :organism :Arabidopsis_thaliana ;
+       :start 100 .
+```
+--
+
 - SPARQL (SPARQL protocol and query language) can be used to extract information
 
-But how to simply use this technologies?
+```
+SELECT ?gene ?label
+WHERE {
+    ?gene rdf:type :Gene .
+    ?gene rdfs:label ?label .
+}
+
+```
 
 ---
 
+## AskOmics
+### The semantic web
+---------
+
+![lod_cloud](images/lod_cloud.png "lod_cloud")
+
+
+---
 
 ## AskOmics
 ### AskOmics as a solution
 ---------
 
+--
+
 AskOmics is a web software for data integration and query using semantic web
 
 - Convert multiple data format into rdf triples, and store them into a triplestore
 
-- Query the rdf graph threw a user-friendly interface
+- Query the rdf graph using a user-friendly interface
 
-- Save, redo and Share queries and results
+- Save, relaunch and share queries and results
+
+- AskOmics community: tools can generate entry files for AskOmics (AskoR, AuReMe)
 
 
 ---
@@ -99,9 +138,11 @@ AskOmics is a web software for data integration and query using semantic web
 ### Input files
 ---------
 
+--
+
 - Genetic files
     * *Arabidopsis thaliana* (GFF, TAIR)
-    * *Brassica napus* genes (GFF, Bipaa plateforme)
+    * *Brassica napus* genes (GFF, BBIP platform)
     * Orthology relation (TSV, Chalhoub *et al*, 2014)
 
 - Differential expression
@@ -110,20 +151,9 @@ AskOmics is a web software for data integration and query using semantic web
 - Pathway
     * genes reaction and patway data of *Brassica napus* (TSV, Metacyc + AuReMe)
 
----
-
-## Demo
-### Biological questions
----------
-
-- Which genes of *Brassica napus* are more strongly expressed in the roots than in the leaves?
-
-- What are their ortholog in *Arabidospis thaliana*? Are they in a QTL?
-
-- In which biological reactions are the genes obtained involved, and in which metabolic pathways are they involved?
+![schema_small](images/schema_small.png "schema_small")
 
 ---
-
 
 
 ## Demo
@@ -143,23 +173,54 @@ AskOmics is a web software for data integration and query using semantic web
 ---
 
 
-
-## To go further
-### On going work
+## Demo
+### Biological questions
 ---------
 
-- Support for multiple endpoint (FederetedQueryScaler, wimmics)
+- Which genes of *Brassica napus* are more strongly expressed in the roots than in the leaves?
+
+--
+
+- What are their orthologs in *Arabidospis thaliana*? Are they in a QTL?
+
+--
+
+- In which biological reactions are the genes obtained involved, and in which metabolic pathways are they involved?
+
+---
+
+
+
+## What's next?
+### Ongoing work
+---------
+
+--
+
+- Support for multiple endpoints (FederatedQueryScaler, wimmics)
+
+--
 
 - Extend query expressivity (and/or)
+
+--
 
 - Reach a larger user base
     - Offer a library of templates and queries
 
+--
+
+
 - Improve reproducibility and sharing functionalities
+
     - Save and share queries
     - Automated integration and query with the API
 
+--
+
+
 - Refactoring interface
+
     - API: Flask microframework (python)
     - Task queue: Celery (python)
     - Front: React library (JS)
@@ -168,11 +229,11 @@ AskOmics is a web software for data integration and query using semantic web
 ---
 
 
-## TGF
-### Collaboration
+
+## Collaboration
 ---------
 
-AskOmics users:
+Thanks to all AskOmics users:
 
 - C Bettembourg – IGEPP aphids (D. Tagu)
 - A. Evrard – IGEPP rapeseed (M. Jubault)
@@ -193,27 +254,27 @@ AskOmics users:
 - M. Gonzalez - CGR, Universidad de Chile
 - O. Chakoory/E. Forano - INRA
 
+
+
 ---
 
-## TGF
-### Contribution
+## Usefull links
 ---------
 
-AskOmics is the result of a strong collaboration between INRA and Inria. It received contributions from:
+- Github repos
+    - AskOmics: [askomics/askomics](https://github.com/askomics/askomics)
+    - AskOmics3: [xgaia/flaskomics](https://github.com/xgaia/flaskomics)
 
-AskOmics received contributions from :
-- Meziane Aite (Inria)
-- Arnaud Belcour (intern)
-- Charles Bettembourg (postdoc + Sanofi)
-- Anthony Bretaudeau (INRA)
-- Yvanne Chaussin (intern)
-- Olivier Dameron (Univ. Rennes 1)
-- Aurélie Evrard (postdoc INRA)
-- Olivier Filangi (INRA)
-- Xavier Garnier (intern + INRA, then Inria)
-- Maël Kerbiriou (intern)
-- Fabrice Legeai (INRA)
+- Docs:
+    - AskOmics: [askomics.readthedocs.io](https://askomics.readthedocs.io)
+    - AskOmics3: [flaskomics.readthedocs.io](https://flaskomics.readthedocs.io)
 
----
 
+
+
+- Running instance: [askomics.genouest.org](https://askomics.genouest.org)
+
+- This slides: [xgaia.github.io/askomics/jobim/2019](https://xgaia.github.io/askomics/jobim/2019)
+
+- Contact me: [xavier.garnier@irisa.fr](mailto:xavier.garnier@irisa.fr)
 
