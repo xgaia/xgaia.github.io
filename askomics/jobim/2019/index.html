@@ -160,7 +160,7 @@ iframe {
 <br><br><br>
 <center>
     <h3>
-        AskOmics, a user-friendly interface to semantic web technologies for integrating local datasets with references resources
+        AskOmics, a collaborative user-friendly interface for integrating datasets with references resources using semantic web technologies 
     </h3>    
 </center>
 
@@ -169,35 +169,35 @@ iframe {
 
 ---
 
-## Table of contents
+## Outline
 ---------
 
-1. AskOmics
+1. The nightmare of data
 
-2. Demo
+2. AskOmics as a solution
 
-3. What's next?
+3. Demo
+
+4. What's next?
 
 
 ---
 
 
-## AskOmics
-### A nightmare of data
+## The nightmare of data
 ---------
 
 --
 
 - Big Data: Datasets so **large** or **complex** that traditional data processing is inadequate.
-
 - More than 1500 databases, lack of interoperability, multiple file format
-
+- We need to integrate public data and project specific data
 
 ![data_deluge](images/data_deluge.png "data_deluge")
 
 ---
 
-## AskOmics
+## The nightmare of data
 ### How to explore data
 ---------
 
@@ -206,30 +206,7 @@ iframe {
 ---
 
 
-## AskOmics
-### How to explore data
----------
-
-- <font color="red">Entity</font>
-
-- <font color="green">Attribute</font> of entity
-
-- <font color="blue">Relation</font> between entities
-
---
-
-
-<font color="red">Gene</font> have a <font color="green">chromosome</font><br><br>
-
-
-<font color="red">Reaction</font> <font color="blue">is in</font> <font color="red">Pathway</font>
-
-
-
----
-
-
-## AskOmics
+## The nightmare of data
 ### The semantic web
 ---------
 
@@ -262,7 +239,18 @@ WHERE {
 
 ---
 
-## AskOmics
+
+## The nightmare of data
+### The semantic web
+---------
+
+![integration_query_schema](images/integration_query_schema.png "integration_query_schema")
+
+---
+
+
+
+## The nightmare of data
 ### The semantic web
 ---------
 
@@ -271,8 +259,8 @@ WHERE {
 
 ---
 
-## AskOmics
-### AskOmics as a solution
+
+## AskOmics as a solution
 ---------
 
 --
@@ -283,9 +271,9 @@ AskOmics is a web software for data integration and query using semantic web
 
 - Query the rdf graph using a user-friendly interface
 
-- Save, relaunch and share queries and results
+- Save, relaunch and share queries and results with other users (AskOmics is multi-users)
 
-- AskOmics community: tools can generate entry files for AskOmics (AskoR, AuReMe)
+- AskOmics ecosystem: tools to generate AskOmics complient files (AskoR, AuReMe), Interoperability with Galaxy
 
 
 ---
@@ -305,7 +293,7 @@ AskOmics is a web software for data integration and query using semantic web
     * Differential expression of *Brassica napus* genes between roots and leaves  (TSV, EdgeR + AskoR)
 
 - Pathway
-    * genes reaction and patway data of *Brassica napus* (TSV, Metacyc + AuReMe)
+    * genes reaction and pathway data of *Brassica napus* (TSV, Metacyc + AuReMe)
 
 ![schema_small](images/schema_small.png "schema_small")
 
@@ -352,25 +340,27 @@ AskOmics is a web software for data integration and query using semantic web
 ---------
 
 --
+- Improve reproducibility and sharing functionalities
 
-- Support for multiple endpoints (FederatedQueryScaler, wimmics)
+    - Save and share queries
+    - Automated integration and query with the API
+
+
+--
+
+- Reach a larger user base
+    - Offer a library of templates and
+    -  queries
 
 --
 
 - Extend query expressivity (and/or)
 
---
-
-- Reach a larger user base
-    - Offer a library of templates and queries
 
 --
 
 
-- Improve reproducibility and sharing functionalities
-
-    - Save and share queries
-    - Automated integration and query with the API
+- Support for multiple endpoints (FederatedQueryScaler, wimmics)
 
 --
 
@@ -409,7 +399,9 @@ Thanks to all AskOmics users:
 - J. Yon - Pegase, INRA
 - M. Gonzalez - CGR, Universidad de Chile
 - O. Chakoory/E. Forano - INRA
-
+- G. Rabut - IGDR - protein-protein interactions
+- P. Baudier/M. Aite - Drugs repositioning
+- Mec avec nom chelou - Neuromarkers
 
 
 ---
