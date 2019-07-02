@@ -8,15 +8,29 @@
     </h3>    
 </center>
 
+<br><br><br>
+<center>
+<small>
+    Xavier Garnier<sup>1</sup>, Anthony Bretaudeau<sup>1,2</sup>, Fabrice Legeai<sup>1,2</sup>, Anne Siegel<sup>1</sup> and Olivier Dameron<sup>1</sup>
+</small>
+</center>
 
-.footnote[Xavier Garnier, Anthony Bretaudeau, Fabrice Legeai, Anne Siegel and Olivier Dameron]
+<br>
+
+
+
+<small>
+1. Inria, Univ Rennes, CNRS, IRISA<br/ >
+2. INRA, UMR IGEPP, BIPAA<br/ >
+
+</small>
 
 ---
 
 ## Outline
 ---------
 
-1. The nightmare of data
+1. The nightmare of data: how to integrate project data with reference datasets
 
 2. AskOmics as a solution
 
@@ -33,9 +47,14 @@
 
 --
 
-- Big Data: Datasets so **large** or **complex** that traditional data processing is inadequate.
+Big Data: Datasets so **large** or **complex** that traditional data processing is inadequate.
+
+
 - More than 1500 databases, lack of interoperability, multiple file format
-- We need to integrate public data and project specific data
+- Need to integrate public data and project specific data
+- Integration and query require technical skills and time
+
+Need a user-friendly interface for data integration and querying
 
 ![data_deluge](images/data_deluge.png "data_deluge")
 
@@ -109,7 +128,7 @@ WHERE {
 
 --
 
-AskOmics is a web software for data integration and query using semantic web
+AskOmics is a web software for data integration (references data and project specific data) and query using semantic web
 
 - Convert multiple data format into rdf triples, and store them into a triplestore
 
@@ -117,7 +136,7 @@ AskOmics is a web software for data integration and query using semantic web
 
 - Save, relaunch and share queries and results with other users (AskOmics is multi-users)
 
-- AskOmics ecosystem: tools to generate AskOmics complient files (AskoR, AuReMe), Interoperability with Galaxy
+- AskOmics ecosystem: tools to generate AskOmics compliant files (AskoR, AuReMe), Interoperability with Galaxy
 
 
 ---
@@ -138,6 +157,7 @@ AskOmics is a web software for data integration and query using semantic web
 
 - Pathway
     * genes reaction and pathway data of *Brassica napus* (TSV, Metacyc + AuReMe)
+
 
 ![schema_small](images/schema_small.png "schema_small")
 
@@ -193,13 +213,13 @@ AskOmics is a web software for data integration and query using semantic web
 --
 
 - Reach a larger user base
-    - Offer a library of templates and
-    -  queries
+    - Offer a library of templates (TSV headers)
+    - Provides query templates
 
 --
 
-- Extend query expressivity (and/or)
-
+- Extend query expressivity (and/or
+)
 
 --
 
@@ -245,7 +265,7 @@ Thanks to all AskOmics users:
 - O. Chakoory/E. Forano - INRA
 - G. Rabut - IGDR - protein-protein interactions
 - P. Baudier/M. Aite - Drugs repositioning
-- Mec avec nom chelou - Neuromarkers
+- V. Henry - Neuromarkers
 
 
 ---
