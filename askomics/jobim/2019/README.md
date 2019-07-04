@@ -171,11 +171,10 @@ AskOmics is a web software for data integration (references data and project spe
 <br>
 <center>
     <h3>
-        C4EST PARTI POUR LA <a href="http://localhost:6543">D2MO</a> §§§
+        <a href="http://localhost:6543">Demo</a>
     </h3>    
 </center>
 
-![askomics_logo](images/askomics_logo.png "askomics_logo")
 
 
 ---
@@ -218,8 +217,7 @@ AskOmics is a web software for data integration (references data and project spe
 
 --
 
-- Extend query expressivity (and/or
-)
+- Extend query expressivity (and/or)
 
 --
 
@@ -234,6 +232,10 @@ AskOmics is a web software for data integration (references data and project spe
     - API: Flask microframework (python)
     - Task queue: Celery (python)
     - Front: React library (JS)
+
+--
+
+![electric](images/electric.png "electric")
 
 
 ---
