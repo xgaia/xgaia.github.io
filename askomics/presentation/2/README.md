@@ -361,7 +361,7 @@ Easy deployment with docker and docker-compose: [flaskomics-docker-compose](http
 
 - Running instance: [askomics.genouest.org](https://askomics.genouest.org)
 
-- This slides: [xgaia.github.io/askomics/presentation/2](xgaia.github.io/askomics/presentation/2)
+- This slides: [xgaia.github.io/askomics/presentation/2](https://xgaia.github.io/askomics/presentation/2)
 
 - Contact me: [xavier.garnier@irisa.fr](mailto:xavier.garnier@irisa.fr)
 
