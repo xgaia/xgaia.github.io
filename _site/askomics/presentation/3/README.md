@@ -86,6 +86,40 @@ Each integrated datasets (*content* and *abstraction*) are stored in a named RDF
 
 ---
 
+## AskOmics
+### Data integration - RDF
+-----------------
+
+AskOmics can also integrate RDF files. Abstraction have to be provided inside the file.
+
+--
+
+```
+:MyEntity a :entity .
+:MyEntity a owl:Class .
+:MyEntity a :startPoint .
+:MyEntity rdfs:label "MyEntity" .
+
+:SecondEntity a :entity .
+:SecondEntity a owl:Class .
+:SecondEntity a :startPoint .
+:SecondEntity rdfs:label "SecondEntity" .
+
+:relationBetweenEntities a :AskomicsRelation .
+:relationBetweenEntities a owl:ObjectProperty .
+:relationBetweenEntities rdfs:label "relationBetweenEntities" .
+:relationBetweenEntities rdfs:domain :MyEntity .
+:relationBetweenEntities rdfs:range :SecondEntity .
+
+:myattribute a owl:DatatypeProperty .
+:myattribute rdfs:label "myattribute" .
+:myattribute rdfs:domain :MyEntity .
+:myattribute rdfs:range xsd:string .
+```
+
+
+---
+
 
 
 ## AskOmics
