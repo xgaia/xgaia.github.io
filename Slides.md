@@ -57,3 +57,7 @@ DSparK is the spark implementation of [dsk](https://github.com/gatb/dsk), a kmer
 #### AskO-meeting 31/01/2020
 
 [Slides](/askomics/meeting/20200131)
+
+#### Suisse 06/02/2020
+
+[Slides](/askomics/presentation/suisse)
