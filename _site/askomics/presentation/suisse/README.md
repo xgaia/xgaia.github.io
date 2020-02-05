@@ -41,8 +41,10 @@
 2. Abstractor 2.0.0
     - Overview
     - How it works?
+    - Issue
 
 3. AskOmics 3.3
+    - Next features
 ---
 
 ## AskOmics 3.2.6
@@ -53,9 +55,9 @@
 
 AskOmics is a web software for data integration (references data and project specific data) and query using semantic web
 
-- Convert multiple data format into rdf triples, and store them into a triplestore
+- Convert multiple data formats into rdf triples, and store them into a triplestore
 
-- Query the rdf graph using a user-friendly interface
+- Automatic generation of SPARQL queries using a user-friendly interface
 
 - Save, relaunch and share queries and results with other users (AskOmics is multi-users)
 
@@ -70,10 +72,10 @@ AskOmics is a web software for data integration (references data and project spe
 ### Local data integration
 ---------
 
-AskOmics takes CSV/TSV, GFF3 and BED files as input and convert them into RDF triples. Two kind of triples are generated:
+AskOmics takes CSV/TSV, GFF3 and BED files as input and convert them into RDF triples. Two RDF graphs are generated:
 
 - Data: RDF triples corresponding to the raw data
-- Abstraction: RDF triples for data description (entities, attributes and relations)
+- Abstraction: RDF triples for data description (entitiy types, attribute types and relations)
 
 --
 
@@ -86,7 +88,7 @@ AskOmics takes CSV/TSV, GFF3 and BED files as input and convert them into RDF tr
 ---------
 
 - Header is used to generate Abstraction
-- Rest of the file is the data
+- Other lines are used to generate the graph of data
 
 
 ![tsv_integration](images/tsv_integration.png)
@@ -101,7 +103,7 @@ AskOmics takes CSV/TSV, GFF3 and BED files as input and convert them into RDF tr
 
 AskOmics can be used to query external endpoint.
 
-RDF abstraction have to be integrated as an external resources
+RDF abstraction has to be integrated as an external resource
 
 ![nextprot](images/nextprot_integration.png)
 
@@ -114,11 +116,48 @@ RDF abstraction have to be integrated as an external resources
 ### Query builder
 ----------
 
-The AskOmics Query builder is a dynamic graph build with the abstraction. User create a path into the abstraction graph to build a SPARQL query.
+The AskOmics Query builder is a dynamic graph build with the abstraction. User iteratively traverse a portion of the Abstraction graph to build a SPARQL query.
 
 ![query](images/askoquery.png)
 
 
+
+
+---
+
+## AskOmics 3.2.6
+### Query builder
+----------
+
+
+```sparql
+SELECT DISTINCT ?gene15_Label ?gene15_reference ?QTL43_Label
+WHERE {
+    ?DE1_uri askomics:concern ?GeneLink10_uri .
+    ?GeneLink10_uri askomics:concern ?gene15_uri .
+    ?gene15_uri askomics:includeInReference ?block_15_43 .
+    ?QTL43_uri askomics:includeInReference ?block_15_43 .
+    ?DE1_uri rdf:type askomics:DE .
+    ?DE1_uri askomics:PValue> ?DE1_P_Value .
+    ?DE1_uri askomics:logFC ?DE1_logFC .
+    ?GeneLink10_uri rdf:type askomics:GeneLink .
+    ?gene15_uri rdf:type askomics:gene .
+    ?gene15_uri rdfs:label ?gene15_Label .
+    ?gene15_uri faldo:location/faldo:begin/faldo:reference ?gene15_referenceCategory .
+    ?gene15_referenceCategory rdfs:label ?gene15_reference .
+    ?gene15_uri faldo:location/faldo:end/faldo:position ?gene15_end .
+    ?gene15_uri faldo:location/faldo:begin/faldo:position ?gene15_start .
+    ?QTL43_uri rdf:type askomics:QTL .
+    ?QTL43_uri rdfs:label ?QTL43_Label .
+    ?QTL43_uri faldo:location/faldo:end/faldo:position ?QTL43_End .
+    ?QTL43_uri faldo:location/faldo:begin/faldo:position ?QTL43_Start .
+    ?QTL43_uri askomics:Name ?QTL43_Name .
+    FILTER (?gene15_start > ?QTL43_Start && ?gene15_end < ?QTL43_End) .
+    FILTER ( ?DE1_P_Value <= 0.05 ) .
+    FILTER ( ?DE1_logFC > 2 ) .
+    FILTER (regex(?QTL43_Name, 'growth', 'i'))
+}
+```
 
 
 ---
@@ -129,19 +168,21 @@ The AskOmics Query builder is a dynamic graph build with the abstraction. User c
 ### Query builder
 ----------
 
-Abstraction know where every entity asked are located. Depending on their location, AskOmics will launch the query on:
+Abstraction know where every entities asked are located. Depending on their location, AskOmics will launch the query on:
 
-- The local triplestore
+- The local triplestore (embedded with AskOmics)
 - A distant endpoint
-- The Federated query engine ([Corese](https://github.com/wimmics/corese))
+- The Federated query engine ([Corese](https://github.com/wimmics/corese)) (embedded with AskOmics)
 
-The federated query engine will divide the query into subqueries and send them to the concerned endpoint.
+The federated query engine will divide the query into subqueries and send them to the corresponding endpoint.
 
 ---
 
 ## AskOmics 3.2.6
 ### Results and query management
 ----------
+
+--
 
 Query are stored and can be re-used.
 
