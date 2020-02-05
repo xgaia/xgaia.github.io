@@ -252,7 +252,7 @@ WHERE {
 ---
 
 ## Abstractor 2.0.0
-### Known issues
+### Known issue
 ---------------------
 
 - Some relations are not displayed at the right place
@@ -271,7 +271,7 @@ WHERE {
 
 
 ## Abstractor 2.0.0
-### Known issues
+### Known issue
 ---------------------
 
 - Fix
